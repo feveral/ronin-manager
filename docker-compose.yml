@@ -1,7 +1,7 @@
 version: "3"
 services:
   node:
-    image: axieinfinity/ronin-testnet:v2.1.0-7ff6b15
+    image: axieinfinity/ronin-mainnet:v2.2.0-d31006d
     restart: always
     hostname: node
     container_name: node
@@ -13,6 +13,7 @@ services:
     volumes:
       - ~/.skymavis/chaindata:/ronin
     environment:
+      - SYNC_MODE=snap
       - PASSWORD=${PASSWORD}
       - PRIVATE_KEY=${VALIDATOR_PRIVATE_KEY}
       - BOOTNODES=${BOOTNODES}
@@ -48,3 +49,17 @@ services:
       - BRIDGE_MAINCHAIN__ENDPOINT=${ETHEREUM_ENDPOINT}
       - BRIDGE_SIDECHAIN__ENDPOINT=http://node:8545
       - RUST_LOG=info
+  ronin-push:
+    image: axieinfinity/ronin-pusher
+    restart: always
+    container_name: ronin-pusher
+    depends_on:
+      - node
+      - bridge-db
+    enviroment:
+      - PSQL__HOST=bridge-db
+      - PSQL__PORT=5432
+      - PSQL__USER=${POSTGRES_USER}
+      - PSQL__PASSWROD={POSTGRES_USER}
+      - PSQL__DBNAME={POSTGRES_USER}
+      - PUSH__URL=http://pushgateway.skymavis.one:9091
