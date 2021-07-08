@@ -33,7 +33,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_DB=${POSTGRES_DB}
   bridge:
-    image: axieinfinity/bridge:v0.2.0-6530b9b
+    image: axieinfinity/bridge:v0.2.0-ce9b171
     restart: always
     hostname: bridge
     container_name: bridge
@@ -51,15 +51,16 @@ services:
       - RUST_LOG=info
   ronin-push:
     image: axieinfinity/ronin-pusher
+    hostname: ${INSTANCE_NAME}
     restart: always
     container_name: ronin-pusher
     depends_on:
       - node
       - bridge-db
-    enviroment:
+    environment:
       - PSQL__HOST=bridge-db
       - PSQL__PORT=5432
       - PSQL__USER=${POSTGRES_USER}
-      - PSQL__PASSWROD={POSTGRES_PASSWORD}
-      - PSQL__DBNAME={POSTGRES_DB}
+      - PSQL__PASSWROD=${POSTGRES_PASSWORD}
+      - PSQL__DBNAME=${POSTGRES_DB}
       - PUSH__URL=http://pushgateway.skymavis.one:9091
