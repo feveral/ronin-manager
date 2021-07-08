@@ -63,4 +63,4 @@ services:
       - PSQL__USER=${POSTGRES_USER}
       - PSQL__PASSWROD=${POSTGRES_PASSWORD}
       - PSQL__DBNAME=${POSTGRES_DB}
-      - PUSH__URL=http://pushgateway.skymavis.one:9091
+      - PUSH__URL=http://pushgateway.skymavis.one
