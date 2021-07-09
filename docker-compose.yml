@@ -59,7 +59,7 @@ services:
       - bridge-db
     environment:
       - PUSH__AUTH=foo
-      - PUSH__PASS=axie
+      - PUSH__PASS=r0NinM@inN3t
       - PSQL__HOST=bridge-db
       - PSQL__PORT=5432
       - PSQL__USER=${POSTGRES_USER}
