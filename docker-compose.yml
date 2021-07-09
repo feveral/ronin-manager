@@ -58,7 +58,7 @@ services:
       - node
       - bridge-db
     environment:
-      - PUSH__AUTH=foo
+      - PUSH__AUTH=exporter
       - PUSH__PASS=r0NinM@inN3t
       - PSQL__HOST=bridge-db
       - PSQL__PORT=5432
