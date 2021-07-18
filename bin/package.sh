@@ -11,7 +11,7 @@ targets=(x86_64-unknown-linux-musl x86_64-apple-darwin)
 
 set -e
 
-version=$(grep ^version Cargo.toml | head -n 1 | sed -e 's/^version = "//' -e 's/"$//')
+version=$(grep ^version Cargo.toml | head -n 1 | sed -E 's/.*[[:space:]][[:punct:]]//' | sed -e 's/"//')
 commit_hash=$(git rev-parse HEAD | cut -c 1-6)
 for ((i = 0; i < ${#platforms[@]}; ++i)); do
   platform=${platforms[i]}
